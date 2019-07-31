@@ -27,8 +27,9 @@ def index():
 
 @app.route('/login', methods=['POST'])
 def mkdir():
-    print(request.form['name'])
-    username = request.form['name']
+    print(request.get_data())
+    jsoninfo = json.loads(request.get_data())
+    username=jsoninfo['name']
     isExists=os.path.exists(user_config.get_path_by_username(username))
     if not isExists:
         os.makedirs(user_config.get_path_by_username(username))
@@ -47,8 +48,12 @@ def upload_yml():
 
 @app.route('/issaveyml', methods=['POST'])
 def is_exist_yml():
-    username = request.form['name']
-    isExists = os.path.exists(os.path.join(user_config.get_path_by_username(username), 'config.yml'))
+    jsoninfo = json.loads(request.get_data())
+    username = jsoninfo['name']
+    path = os.path.join(user_config.get_path_by_username(username), 'config.yml')
+    print(path)
+    print(type(username))
+    isExists = os.path.exists(path)
     print(user_config.get_path_by_username(username))
     print(isExists)
     if isExists:
@@ -59,7 +64,8 @@ def is_exist_yml():
 @app.route('/issavempy', methods=['POST'])
 def is_exist_mpy():
     pyfilelist=[]
-    username = request.form['name']
+    jsoninfo = json.loads(request.get_data())
+    username = jsoninfo['name']
     names = os.listdir(user_config.get_path_by_username(username))
     for name in names:
         if name.endswith('.py'):
@@ -68,7 +74,8 @@ def is_exist_mpy():
 
 @app.route('/issavesearchjson', methods=['POST'])
 def is_exist_search_json():
-    username = request.form['name']
+    jsoninfo = json.loads(request.get_data())
+    username = jsoninfo['name']
     isExists = os.path.exists(os.path.join(user_config.get_path_by_username(username),'search_space.json'))
     if isExists:
         return jsonify({'status': '0', 'message': 'exist searchjson'})
@@ -99,7 +106,8 @@ def upload_json():
 
 @app.route('/create', methods=['POST'])
 def create():
-    username = request.form['name']
+    jsoninfo = json.loads(request.get_data())
+    username = jsoninfo['name']
     path_nnicreate = os.path.join(user_config.get_path_by_username(username), 'config.yml')
     create_cmd = 'nnictl create --config' + ' ' + path_nnicreate + ' -p ' + user_config.get_port_by_username(username)
     print((create_cmd))
@@ -133,7 +141,8 @@ def create():
 
 @app.route('/stop', methods=['POST'])
 def stop():
-    username = request.form['name']
+    jsoninfo = json.loads(request.get_data())
+    username = jsoninfo['name']
     id = user_config.get_id_by_username(username)
     stop_cmd = 'nnictl stop'+ ' '+ id
     cm = subprocess.call(stop_cmd, shell=True)
@@ -144,7 +153,8 @@ def stop():
 
 @app.route('/show', methods=['POST'])
 def show():
-    username = request.form['name']
+    jsoninfo = json.loads(request.get_data())
+    username = jsoninfo['name']
     id = user_config.get_id_by_username(username)
     show_cmd = 'nnictl experiment show' + ' ' + id
     cm = subprocess.Popen(show_cmd, shell=True,stdout=subprocess.PIPE)
@@ -153,7 +163,8 @@ def show():
 
 @app.route('/stderr', methods=['POST'])
 def stderr():
-    username = request.form['name']
+    jsoninfo = json.loads(request.get_data())
+    username = jsoninfo['name']
     id = user_config.get_id_by_username(username)
     show_cmd = 'nnictl experiment show' + ' ' + id
     cm = subprocess.Popen(show_cmd, shell=True,stdout=subprocess.PIPE)
@@ -162,29 +173,13 @@ def stderr():
 
 @app.route('/trialls', methods=['POST'])
 def trialls():
-    username = request.form['name']
+    jsoninfo = json.loads(request.get_data())
+    username = jsoninfo['name']
     id = user_config.get_id_by_username(username)
     trialls_cmd = 'nnictl trial ls' + ' ' + id
     cm = subprocess.Popen(trialls_cmd, shell=True,stdout=subprocess.PIPE)
     info=cm.communicate()
     return info
-
-# @app.route('/top', methods=['POST'])
-# def top():
-#     #os.chdir('C:\\Users\\ThinkPad')
-#     top_cmd = 'nnictl top'
-#     cm=subprocess.Popen(top_cmd, shell=True,stdout=subprocess.PIPE)
-#     infomation=[]
-#     while True:
-#         line = cm.stdout.readline()
-#         if line==b'\n':
-#             break
-#         else:
-#             print(line)
-#             line = line.decode('GBK')
-#             infomation.append(list(map(str, line.split(','))))
-#         jsonArr = jsonify(json.dumps(infomation, ensure_ascii=False))
-#         return jsonArr
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
