@@ -36,7 +36,7 @@ class ExperimentsStarter(Resource):
                     config.set_id_by_username(username, iiname)
                     is_create = True
         if (is_create):
-            return jsonify({'status': '0', 'message': username+'任务创建成功！', 'port': config.get_port_by_username(username)})
+            return jsonify({'status': '0', 'message': username+'任务创建成功！', 'port': config.get_external_port_by_inner_port(username)})
         else:
             return jsonify(
                 {'status': '0', 'message': username + '任务创建失败！', 'port': config.get_port_by_username(username)})
