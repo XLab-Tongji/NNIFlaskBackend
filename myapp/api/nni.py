@@ -52,9 +52,9 @@ class ExperimentsStopper(Resource):
         cm = subprocess.call(stop_cmd, shell=True)
         if (cm == 0):
             config.release_port_by_username(username)
-            return jsonify({'status': '0', 'message': 'Successfully stoped experiment!', 'experiment_ID': id})
+            return jsonify({'status': '0', 'message': 'Successfully stop the experiment!', 'experiment_ID': id})
         else:
-            return jsonify({'status': '1', 'message': 'Unsuccessfully stoped experiment!', 'experiment_ID': 'error'})
+            return jsonify({'status': '1', 'message': 'Failed to stop the experiment!', 'experiment_ID': 'error'})
 
 
 class ExperimentsShow(Resource):

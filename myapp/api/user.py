@@ -13,6 +13,6 @@ class User(Resource):
         isExists = os.path.exists(config.get_userpath_by_username(username))
         if not isExists:
             os.makedirs(config.get_userpath_by_username(username))
-        return 'log in success'
+        return 'log in successfully'
 
 

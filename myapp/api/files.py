@@ -21,18 +21,18 @@ class YmlFile(Resource):
        if upload_file and allowed_file(upload_file.filename):
            filename = secure_filename(upload_file.filename)
            upload_file.save(os.path.join(config.get_userpath_by_username(username), filename))
-           return jsonify({'status': '0', 'message': 'successyml'})
+           return jsonify({'status': '0', 'message': 'successful'})
        else:
-           return jsonify({'status': '1', 'message': 'failedyml'})
+           return jsonify({'status': '1', 'message': 'failed'})
 
    def get(self):
        username = request.args.get("name")
        path = config.get_ymlpath_by_username(username)
        isExists = os.path.exists(path)
        if isExists:
-           return jsonify({'status': '0', 'message': 'exist config.yml'})
+           return jsonify({'status': '0', 'message': 'exist'})
        else:
-           return jsonify({'status': '1', 'message': 'no config.yml'})
+           return jsonify({'status': '1', 'message': 'non-exist'})
 
 
 class PythonFile(Resource):
@@ -43,13 +43,13 @@ class PythonFile(Resource):
        if upload_file and allowed_file(upload_file.filename):
            filename = secure_filename(upload_file.filename)
            upload_file.save(os.path.join(config.get_userpath_by_username(username), filename))
-           return jsonify({'status': '0', 'message': 'successmpy'})
+           return jsonify({'status': '0', 'message': 'successful'})
        else:
-           return jsonify({'status': '1', 'message': 'failedmpy'})
+           return jsonify({'status': '1', 'message': 'failed'})
 
    def get(self):
        pyfilelist = []
-       username = request.form['name']
+       username = request.args.get("name")
        names = os.listdir(config.get_userpath_by_username(username))
        for name in names:
            if name.endswith('.py'):
@@ -65,14 +65,14 @@ class JsonFile(Resource):
        if upload_file and allowed_file(upload_file.filename):
            filename = secure_filename(upload_file.filename)
            upload_file.save(os.path.join(config.get_userpath_by_username(username), filename))
-           return jsonify({'status': '0', 'message': 'successsearchjson'})
+           return jsonify({'status': '0', 'message': 'successful'})
        else:
-           return jsonify({'status': '1', 'message': 'failedsearchjson'})
+           return jsonify({'status': '1', 'message': 'failed'})
 
    def get(self):
        username = request.args.get("name")
        isExists = os.path.exists(config.get_jsonpath_by_name(username))
        if isExists:
-           return jsonify({'status': '0', 'message': 'exist searchjson'})
+           return jsonify({'status': '0', 'message': 'exists'})
        else:
-           return jsonify({'status': '1', 'message': 'no searchjson'})
+           return jsonify({'status': '1', 'message': 'non-exist'})
