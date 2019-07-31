@@ -1,7 +1,5 @@
 from flask_restful import Resource, request
-from werkzeug.utils import secure_filename
 from myapp.models.UserConfig import UserConfig
-import os
 from flask import jsonify
 import json
 import subprocess

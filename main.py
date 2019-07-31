@@ -44,10 +44,9 @@ def upload_yml():
     else:
         return jsonify({'status': '1', 'message': 'failedyml'})
 
-@app.route('/exist_file_yml', methods=['POST'])
+@app.route('/exist_file_yml', methods=['GET'])
 def is_exist_yml():
-    jsoninfo = json.loads(request.get_data())
-    username = jsoninfo['name']
+    username = request.args.get("name")
     path = config.get_ymlpath_by_username(username)
     isExists = os.path.exists(path)
     if isExists:
@@ -55,21 +54,19 @@ def is_exist_yml():
     else:
         return jsonify({'status': '1', 'message': 'no config.yml'})
 
-@app.route('/exist_file_py', methods=['POST'])
+@app.route('/exist_file_py', methods=['GET'])
 def is_exist_mpy():
     pyfilelist=[]
-    jsoninfo = json.loads(request.get_data())
-    username = jsoninfo['name']
+    username = request.args.get("name")
     names = os.listdir(config.get_userpath_by_username(username))
     for name in names:
         if name.endswith('.py'):
             pyfilelist.append(list(map(str, name.split(','))))
     return jsonify({'status': '0', 'pyfilelist':pyfilelist })
 
-@app.route('/exist_file_json', methods=['POST'])
+@app.route('/exist_file_json', methods=['GET'])
 def is_exist_search_json():
-    jsoninfo = json.loads(request.get_data())
-    username = jsoninfo['name']
+    username = request.args.get("name")
     isExists = os.path.exists(config.get_jsonpath_by_name(username))
     if isExists:
         return jsonify({'status': '0', 'message': 'exist searchjson'})

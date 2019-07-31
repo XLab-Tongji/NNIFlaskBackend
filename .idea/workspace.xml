@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c2b1477-e7a0-4526-818e-2a5a066fb5d0" name="Default Changelist" comment="">
+<<<<<<< HEAD
 <<<<<<< Updated upstream
       <change afterPath="$PROJECT_DIR$/Config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserConfig.py" beforeDir="false" afterPath="$PROJECT_DIR$/UserConfig.py" afterDir="false" />
+=======
+>>>>>>> acfcc508b50bb3e77b63159c7def4ee948dceaa5
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
 =======
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app.py" />
@@ -51,6 +54,7 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< Updated upstream
             <state relative-caret-position="284">
               <caret line="133" lean-forward="true" selection-start-line="133" selection-end-line="133" />
@@ -58,6 +62,10 @@
             <state relative-caret-position="235">
               <caret line="22" column="15" lean-forward="false" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
 >>>>>>> Stashed changes
+=======
+            <state relative-caret-position="418">
+              <caret line="70" column="16" lean-forward="true" selection-start-line="70" selection-start-column="16" selection-end-line="70" selection-end-column="16" />
+>>>>>>> acfcc508b50bb3e77b63159c7def4ee948dceaa5
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -69,7 +77,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
+            <state relative-caret-position="76">
               <caret line="5" selection-start-line="5" selection-end-line="10" selection-end-column="77" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
@@ -157,6 +165,7 @@
       <list>
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/Config.py" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/main.py" />
 <<<<<<< Updated upstream
         <option value="$PROJECT_DIR$/UserConfig.py" />
@@ -171,6 +180,10 @@
         <option value="$PROJECT_DIR$/myapp/api/nni.py" />
         <option value="$PROJECT_DIR$/myapp/api/files.py" />
 >>>>>>> Stashed changes
+=======
+        <option value="$PROJECT_DIR$/UserConfig.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+>>>>>>> acfcc508b50bb3e77b63159c7def4ee948dceaa5
       </list>
     </option>
   </component>
@@ -200,6 +213,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -246,8 +260,11 @@
           </PATH>
         </subPane>
       </pane>
+<<<<<<< HEAD
       <pane id="Scratches" />
       <pane id="Scope" />
+=======
+>>>>>>> acfcc508b50bb3e77b63159c7def4ee948dceaa5
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -568,7 +585,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
+        <state relative-caret-position="76">
           <caret line="5" selection-start-line="5" selection-end-line="10" selection-end-column="77" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
@@ -609,12 +626,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         <state relative-caret-position="284">
           <caret line="133" lean-forward="true" selection-start-line="133" selection-end-line="133" />
 =======
         <state relative-caret-position="418">
           <caret line="22" column="15" lean-forward="true" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
+=======
+        <state relative-caret-position="418">
+          <caret line="70" column="16" lean-forward="true" selection-start-line="70" selection-start-column="16" selection-end-line="70" selection-end-column="16" />
+>>>>>>> acfcc508b50bb3e77b63159c7def4ee948dceaa5
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>

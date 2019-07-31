@@ -1,11 +1,13 @@
 import os
+
+
 class UserConfig(object):
     __instance = None
 
     def __init__(self):
         self.username_id = {}
-        self.path = "/Users/xuawai/Temp/nni"
-        # '/workspace/data'
+        # self.path = "/Users/xuawai/Temp/nni"
+        self.path = '/workspace/data'
 
     def __new__(cls, *args, **kwargs):
         if cls.__instance is None:
