@@ -70,12 +70,7 @@ class ExperimentsShow(Resource):
         show_cmd = 'nnictl experiment show' + ' ' + id
         cm = subprocess.Popen(show_cmd, shell=True, stdout=subprocess.PIPE)
         info = cm.communicate()
-        print(info[0])
-        print(type(info[0]))
         return jsonify(info[0])
-        # jsoninfo = json.loads(request.get_data())
-        # username = jsoninfo['name']
-        # return username
 
 
 class TrialsShow(Resource):
@@ -87,4 +82,4 @@ class TrialsShow(Resource):
         trialls_cmd = 'nnictl trial ls' + ' ' + id
         cm = subprocess.Popen(trialls_cmd, shell=True, stdout=subprocess.PIPE)
         info = cm.communicate()
-        return info[0]
+        return jsonify(info[0])
