@@ -36,14 +36,10 @@ class ExperimentsStarter(Resource):
                     config.set_id_by_username(username, iiname)
                     is_create = True
         if (is_create):
-            if (username == 'user_1'):
-                return jsonify({'status': '0', 'message': 'user_1任务创建成功！', 'port': '1100'})
-            elif (username == 'user_2'):
-                return jsonify({'status': '0', 'message': 'user_2任务创建成功！', 'port': '1101'})
-            elif (username == 'user_3'):
-                return jsonify({'status': '0', 'message': 'user_3任务创建成功！', 'port': '1102'})
+            return jsonify({'status': '0', 'message': username+'任务创建成功！', 'port': config.get_port_by_username(username)})
         else:
-            return jsonify({'status': '1', 'message': '任务创建失败！', 'port': 'error'})
+            return jsonify(
+                {'status': '0', 'message': username + '任务创建失败！', 'port': config.get_port_by_username(username)})
 
 
 class ExperimentsStopper(Resource):
