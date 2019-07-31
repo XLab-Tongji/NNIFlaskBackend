@@ -5,9 +5,14 @@ class UserConfig(object):
     __instance = None
 
     def __init__(self):
-        self.username_id = {}
+        self.username2port = {}
+        self.username2id = {}
         # self.path = "/Users/xuawai/Temp/nni"
         self.path = '/workspace/data'
+        self.ports = set()
+        self.ports.add('8080')
+        self.ports.add('8081')
+        self.ports.add('8082')
 
     def __new__(cls, *args, **kwargs):
         if cls.__instance is None:
@@ -15,19 +20,27 @@ class UserConfig(object):
         return cls.__instance
 
     def get_port_by_username(self, username):
-        if(username=='user_1'):
-            port = '8080'
-        elif(username=='user_2'):
-            port = '8081'
-        elif(username=='user_3'):
-            port = '8082'
-        return port
+        if username in self.username2port.keys():
+            return self.username2port[username]
+        if len(self.ports) > 0:
+            port = self.ports.pop()
+            self.ports.remove(port)
+            self.username2port[username] = port
+            return port
+        else:
+            return 'no available port'
+
+    def release_port_by_username(self, username):
+        port = self.username2port[username]
+        self.username2port.pop(username)
+        self.username2id.pop(username)
+        self.ports.add(port)
 
     def set_id_by_username(self, username, id):
-        self.username_id[username] = id
+        self.username2id[username] = id
 
     def get_id_by_username(self, username):
-        return self.username_id[username]
+        return self.username2id[username]
 
     def get_userpath_by_username(self, username):
         return os.path.join(self.path, username)

@@ -4,6 +4,7 @@ from myapp.api.files import YmlFile, PythonFile, JsonFile
 from myapp.api.user import User
 from myapp.api.nni import ExperimentsStarter, ExperimentsStopper, ExperimentsShow, TrialsShow
 
+
 def register_views(app):
     api = Api(app)
     api.add_resource(YmlFile, '/yml', endpoint="yml")
@@ -16,6 +17,7 @@ def register_views(app):
     api.add_resource(ExperimentsStopper, '/stop', endpoint="stop")
     api.add_resource(ExperimentsShow, '/experiments', endpoint="experiments")
     api.add_resource(TrialsShow, '/trials', endpoint="trials")
+
 
 def create_blueprint_v1():
     """

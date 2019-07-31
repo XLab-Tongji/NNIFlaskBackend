@@ -55,6 +55,7 @@ class ExperimentsStopper(Resource):
         stop_cmd = 'nnictl stop' + ' ' + id
         cm = subprocess.call(stop_cmd, shell=True)
         if (cm == 0):
+            config.release_port_by_username(username)
             return jsonify({'status': '0', 'message': 'Successfully stoped experiment!', 'experiment_ID': id})
         else:
             return jsonify({'status': '1', 'message': 'Unsuccessfully stoped experiment!', 'experiment_ID': 'error'})
