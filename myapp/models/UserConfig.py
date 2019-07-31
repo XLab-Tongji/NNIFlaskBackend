@@ -24,7 +24,6 @@ class UserConfig(object):
             return self.username2port[username]
         if len(self.ports) > 0:
             port = self.ports.pop()
-            self.ports.remove(port)
             self.username2port[username] = port
             return port
         else:
