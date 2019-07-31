@@ -26,22 +26,3 @@ class UserConfig(object):
     def get_id_by_username(self, username):
         return self.username_id[username]
 
-    def get_path_by_username(self, username):
-        return os.path.join('/workspace/data', username)
-
-
-# class user(User):
-#     def __init__(self):
-#         self
-#     def inforgive(self,user_name):
-#         self.name = user_name  # 名称
-#         self.user_road = os.path.join('/workspace/data', user_name)
-#         if(self.name=='user_1'):
-#             self.port = '8080'  # 接口
-#         elif(self.name=='user_2'):
-#             self.port='8081'
-#         else:
-#             self.port='8082'
-#
-#     def giveexperiment_id(self, id):
-#         self.experiment_id=id

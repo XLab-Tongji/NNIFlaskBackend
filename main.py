@@ -6,15 +6,13 @@ import os
 import re
 import json
 from UserConfig import UserConfig
-
+from Config import Config
 app = Flask(__name__)
 CORS(app)
-#app.config['UPLOAD_FOLDER'] = '/workspace/data'
+
 app.config['ALLOWED_EXTENSIONS'] = set(['py','yml','txt','json'])
 user_config = UserConfig()
-#path_nnicreate='nni/examples/trials/mnist/config.yml'
-#create_cmd='nnictl create --config'+' '+ path_nnicreate
-
+config=Config()
 # For a given file, return whether it's an allowed type or not
 def allowed_file(filename):
     return '.' in filename and \
@@ -30,86 +28,81 @@ def mkdir():
     print(request.get_data())
     jsoninfo = json.loads(request.get_data())
     username=jsoninfo['name']
-    isExists=os.path.exists(user_config.get_path_by_username(username))
+    isExists=os.path.exists(config.get_userpath_by_username(username))
     if not isExists:
-        os.makedirs(user_config.get_path_by_username(username))
+        os.makedirs(config.get_userpath_by_username(username))
     return 'log in success'
 
-@app.route('/saveyml', methods=['POST'])
+@app.route('/save_file_yml', methods=['POST'])
 def upload_yml():
     upload_file = request.files['yml']
     username = request.form['name']
     if upload_file and allowed_file(upload_file.filename):
         filename = secure_filename(upload_file.filename)
-        upload_file.save(os.path.join(user_config.get_path_by_username(username),filename))
+        upload_file.save(os.path.join(config.get_userpath_by_username(username),filename))
         return jsonify({'status': '0', 'message': 'successyml'})
     else:
         return jsonify({'status': '1', 'message': 'failedyml'})
 
-@app.route('/issaveyml', methods=['POST'])
+@app.route('/exist_file_yml', methods=['POST'])
 def is_exist_yml():
     jsoninfo = json.loads(request.get_data())
     username = jsoninfo['name']
-    path = os.path.join(user_config.get_path_by_username(username), 'config.yml')
-    print(path)
-    print(type(username))
+    path = config.get_ymlpath_by_username(username)
     isExists = os.path.exists(path)
-    print(user_config.get_path_by_username(username))
-    print(isExists)
     if isExists:
         return jsonify({'status': '0', 'message': 'exist config.yml'})
     else:
         return jsonify({'status': '1', 'message': 'no config.yml'})
 
-@app.route('/issavempy', methods=['POST'])
+@app.route('/exist_file_py', methods=['POST'])
 def is_exist_mpy():
     pyfilelist=[]
     jsoninfo = json.loads(request.get_data())
     username = jsoninfo['name']
-    names = os.listdir(user_config.get_path_by_username(username))
+    names = os.listdir(config.get_userpath_by_username(username))
     for name in names:
         if name.endswith('.py'):
             pyfilelist.append(list(map(str, name.split(','))))
     return jsonify({'status': '0', 'pyfilelist':pyfilelist })
 
-@app.route('/issavesearchjson', methods=['POST'])
+@app.route('/exist_file_json', methods=['POST'])
 def is_exist_search_json():
     jsoninfo = json.loads(request.get_data())
     username = jsoninfo['name']
-    isExists = os.path.exists(os.path.join(user_config.get_path_by_username(username),'search_space.json'))
+    isExists = os.path.exists(config.get_jsonpath_by_name(username))
     if isExists:
         return jsonify({'status': '0', 'message': 'exist searchjson'})
     else:
         return jsonify({'status': '1', 'message': 'no searchjson'})
 
-@app.route('/savempy', methods=['POST'])
+@app.route('/save_file_py', methods=['POST'])
 def upload_py():
     username = request.form['name']
     upload_file = request.files['mpy']
     if upload_file and allowed_file(upload_file.filename):
         filename = secure_filename(upload_file.filename)
-        upload_file.save(os.path.join(user_config.get_path_by_username(username),filename))
+        upload_file.save(os.path.join(config.get_userpath_by_username(username),filename))
         return jsonify({'status': '0', 'message': 'successmpy'})
     else:
         return jsonify({'status': '1', 'message': 'failedmpy'})
 
-@app.route('/savesearchjson', methods=['POST'])
+@app.route('/save_file_json', methods=['POST'])
 def upload_json():
     username = request.form['name']
     upload_file = request.files['searchjson']
     if upload_file and allowed_file(upload_file.filename):
         filename = secure_filename(upload_file.filename)
-        upload_file.save(os.path.join(user_config.get_path_by_username(username),filename))
+        upload_file.save(os.path.join(config.get_userpath_by_username(username),filename))
         return jsonify({'status': '0', 'message': 'successsearchjson'})
     else:
         return jsonify({'status': '1', 'message': 'failedsearchjson'})
 
-@app.route('/create', methods=['POST'])
+@app.route('/create_experiment', methods=['POST'])
 def create():
     jsoninfo = json.loads(request.get_data())
     username = jsoninfo['name']
-    path_nnicreate = os.path.join(user_config.get_path_by_username(username), 'config.yml')
-    create_cmd = 'nnictl create --config' + ' ' + path_nnicreate + ' -p ' + user_config.get_port_by_username(username)
+    create_cmd = 'nnictl create --config' + ' ' + config.get_ymlpath_by_username(username) + ' -p ' + user_config.get_port_by_username(username)
     print((create_cmd))
     cm1 = subprocess.Popen(create_cmd, shell=True,
                          stdout=subprocess.PIPE)
@@ -139,7 +132,7 @@ def create():
     else:
         return jsonify({'status': '1', 'message': '任务创建失败！', 'port': 'error'})
 
-@app.route('/stop', methods=['POST'])
+@app.route('/stop_experiment', methods=['POST'])
 def stop():
     jsoninfo = json.loads(request.get_data())
     username = jsoninfo['name']
@@ -151,7 +144,7 @@ def stop():
     else:
         return jsonify({'status': '1', 'message': 'Unsuccessfully stoped experiment!','experiment_ID':'error'})
 
-@app.route('/show', methods=['POST'])
+@app.route('/show_experiment', methods=['POST'])
 def show():
     jsoninfo = json.loads(request.get_data())
     username = jsoninfo['name']
@@ -161,7 +154,7 @@ def show():
     info=cm.communicate()
     return info
 
-@app.route('/stderr', methods=['POST'])
+@app.route('/log_stderr_experiment', methods=['POST'])
 def stderr():
     jsoninfo = json.loads(request.get_data())
     username = jsoninfo['name']
@@ -171,7 +164,7 @@ def stderr():
     info=cm.communicate()
     return info
 
-@app.route('/trialls', methods=['POST'])
+@app.route('/trial_ls_experiment', methods=['POST'])
 def trialls():
     jsoninfo = json.loads(request.get_data())
     username = jsoninfo['name']
