@@ -29,7 +29,8 @@ class UserConfig(object):
         else:
             return 'no available port'
 
-    def get_external_port_by_inner_port(self, port):
+    def get_external_port_by_inner_port(self, username):
+        port = self.get_port_by_username(username)
         mapping = {'8080':'1100', '8081':'1101', '8082':'1102'}
         return mapping[port]
 
