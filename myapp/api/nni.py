@@ -39,7 +39,7 @@ class ExperimentsStarter(Resource):
             return jsonify({'status': '0', 'message': username+'任务创建成功！', 'port': config.get_external_port_by_inner_port(username)})
         else:
             return jsonify(
-                {'status': '0', 'message': username + '任务创建失败！', 'port': config.get_port_by_username(username)})
+                {'status': '1', 'message': username + '任务创建失败！', 'port': config.get_port_by_username(username)})
 
 
 class ExperimentsStopper(Resource):
