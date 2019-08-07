@@ -23,7 +23,7 @@ python3 -m pip install --upgrade nni
 
 
 
-####二、依赖安装
+#### 二、依赖安装
 ```
 pip install flask
 pip install flask_cors
@@ -31,10 +31,10 @@ pip install flask_restful
 
 ```
 
-### 三、后端启动方法
+#### 三、后端启动方法
 ```
 python app.py
 ```
 
-### 四、前端路由
+#### 四、前端路由
 [前端项目](https://github.com/XLab-Tongji/NNIFrontend) 中全局搜索10.60.38.173,替换为部署docker的服务器ip地址。
