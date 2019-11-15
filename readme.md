@@ -57,7 +57,9 @@ pip install flask_restful
 ```
 python app.py
 ```
-如无任何报错信息，则说明后台正常启动。
+如启动信息如下图所示，则说明后台正常启动。
+
+![](https://github.com/XLab-Tongji/NNIFlaskBackend/blob/master/pic/start.png)
 
 #### 四、前端路由
 在[前端项目](https://github.com/XLab-Tongji/NNIFrontend) 中全局搜索`10.60.38.173`(这是实验室173服务器的地址),替换为当前部署了nni容器的服务器的ip地址。
